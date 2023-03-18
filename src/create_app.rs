@@ -1,8 +1,8 @@
-use crate::api::controllers::todo_handler::{
+use crate::container::Container;
+use crate::presentation::controllers::todo_handler::{
     create_todo_handler, delete_todo_handler, get_todo_handler, list_todos_handler,
 };
-use crate::api::middleware::ServiceContextMaintenanceCheck;
-use crate::container::Container;
+use crate::presentation::middleware::ServiceContextMaintenanceCheck;
 use actix_web::body::MessageBody;
 use actix_web::dev::{ServiceFactory, ServiceRequest, ServiceResponse};
 use actix_web::middleware::Logger;
@@ -27,11 +27,13 @@ pub fn create_app() -> App<
         .app_data(web::Data::from(service_context_service.clone()))
         .wrap(Logger::default())
         .wrap(ServiceContextMaintenanceCheck)
-        .service(
-            web::scope("/todos")
-                .route("", web::post().to(create_todo_handler))
-                .route("", web::get().to(list_todos_handler))
-                .route("/{id}", web::get().to(get_todo_handler))
-                .route("/{id}", web::delete().to(delete_todo_handler)),
-        )
+        .service(todos())
+}
+
+fn todos() -> actix_web::Scope {
+    web::scope("/todos")
+        .route("", web::post().to(create_todo_handler))
+        .route("", web::get().to(list_todos_handler))
+        .route("/{id}", web::get().to(get_todo_handler))
+        .route("/{id}", web::delete().to(delete_todo_handler))
 }

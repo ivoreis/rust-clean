@@ -5,7 +5,7 @@ use crate::{
         common::{error::ApiError, result::ResultPaging},
         todos::interfaces::{TodoQueryParams, TodoService},
     },
-    presentation::todos::{CreateTodoDTO, TodoDTO},
+    presentation::dtos::todos::{CreateTodoDTO, TodoDTO},
 };
 
 pub async fn create_todo_handler(

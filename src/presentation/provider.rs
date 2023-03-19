@@ -8,7 +8,7 @@ use crate::{
             service::TodoServiceImpl,
         },
     },
-    infrastructure::persistence::{postgresql::db_pool, todos::repository::TodoDieselRepository},
+    infrastructure::{postgresql::db_pool, todos::repository::TodoDieselRepository},
 };
 
 pub struct ServiceProvider {

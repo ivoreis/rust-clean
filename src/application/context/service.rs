@@ -5,9 +5,7 @@ use std::sync::Arc;
 use crate::{
     application::context::interfaces::ContextService,
     domain::context::entities::ServiceContext,
-    infrastructure::persistence::{
-        context::service_context::ServiceContextDiesel, postgresql::DBConn,
-    },
+    infrastructure::{context::service_context::ServiceContextDiesel, postgresql::DBConn},
 };
 
 #[derive(Clone)]
@@ -21,9 +19,7 @@ impl ContextServiceImpl {
     }
 
     fn get_service_context(&self) -> ServiceContext {
-        use crate::infrastructure::persistence::schema::service_contexts::dsl::{
-            id, service_contexts,
-        };
+        use crate::infrastructure::schema::service_contexts::dsl::{id, service_contexts};
         let mut conn = self.pool.get().unwrap();
         let result: Result<ServiceContextDiesel, Error> = service_contexts
             .filter(id.eq(1))
@@ -38,7 +34,7 @@ impl ContextServiceImpl {
     }
 
     fn create_service_context(&self) -> ServiceContext {
-        use crate::infrastructure::persistence::schema::service_contexts::dsl::service_contexts;
+        use crate::infrastructure::schema::service_contexts::dsl::service_contexts;
         let mut conn = self.pool.get().unwrap();
         let result: Result<ServiceContextDiesel, Error> = insert_into(service_contexts)
             .values(ServiceContextDiesel {
@@ -63,9 +59,7 @@ impl ContextService for ContextServiceImpl {
         let service_context_diesel: ServiceContextDiesel =
             ServiceContextDiesel::from(service_context);
         let mut conn = self.pool.get().unwrap();
-        use crate::infrastructure::persistence::schema::service_contexts::dsl::{
-            id, service_contexts,
-        };
+        use crate::infrastructure::schema::service_contexts::dsl::{id, service_contexts};
 
         let result: Result<ServiceContextDiesel, Error> = update(service_contexts)
             .filter(id.eq(service_context_diesel.id))

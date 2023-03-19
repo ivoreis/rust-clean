@@ -2,7 +2,7 @@ use diesel;
 use diesel::prelude::*;
 
 use crate::domain::todos::entities::{CreateTodo, Todo};
-use crate::infrastructure::persistence::schema::todos;
+use crate::infrastructure::schema::todos;
 
 #[derive(Queryable)]
 pub struct TodoDiesel {

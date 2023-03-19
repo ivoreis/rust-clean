@@ -1,5 +1,5 @@
 use crate::domain::context::entities::ServiceContext;
-use crate::infrastructure::persistence::schema::service_contexts;
+use crate::infrastructure::schema::service_contexts;
 use diesel;
 use diesel::prelude::*;
 

@@ -3,7 +3,7 @@ mod test_todo_controllers {
     use actix_clean_architecture::application::common::result::ResultPaging;
     use actix_clean_architecture::config::POSTGRESQL_DB_URI;
     use actix_clean_architecture::domain::todos::entities::Todo;
-    use actix_clean_architecture::infrastructure::persistence::postgresql::db_pool;
+    use actix_clean_architecture::infrastructure::postgresql::db_pool;
     use actix_clean_architecture::presentation::rest_api::factory::create;
     use actix_web::test;
     use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};

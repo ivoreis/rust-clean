@@ -2,7 +2,7 @@ use actix_web::web;
 
 use crate::{
     application::{common::error::ApiError, context::interfaces::ContextService},
-    presentation::context::ServiceContextDTO,
+    presentation::dtos::context::ServiceContextDTO,
 };
 
 pub async fn update_context_handler(

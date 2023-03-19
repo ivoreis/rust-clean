@@ -1,15 +1,24 @@
+use std::sync::Arc;
+
 use actix_threadpool::run;
 use async_trait::async_trait;
 use diesel::prelude::*;
-use std::sync::Arc;
 
-use crate::application::common::query::QueryParams;
-use crate::application::common::result::{RepositoryResult, ResultPaging};
-use crate::application::todos::interfaces::{TodoQueryParams, TodoRepository};
-use crate::domain::todos::entities::{CreateTodo, Todo};
-use crate::infrastructure::error::DieselRepositoryError;
-use crate::infrastructure::postgresql::DBConn;
-use crate::infrastructure::todos::model::{CreateTodoDiesel, TodoDiesel};
+use crate::{
+    application::{
+        common::{
+            query::QueryParams,
+            result::{RepositoryResult, ResultPaging},
+        },
+        todos::interfaces::{TodoQueryParams, TodoRepository},
+    },
+    domain::todos::entities::{CreateTodo, Todo},
+    infrastructure::{
+        error::DieselRepositoryError,
+        postgresql::DBConn,
+        todos::model::{CreateTodoDiesel, TodoDiesel},
+    },
+};
 
 pub struct TodoDieselRepository {
     pub pool: Arc<DBConn>,

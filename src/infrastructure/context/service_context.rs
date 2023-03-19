@@ -27,3 +27,12 @@ impl From<ServiceContext> for ServiceContextDiesel {
         }
     }
 }
+
+impl Default for ServiceContextDiesel {
+    fn default() -> Self {
+        ServiceContextDiesel {
+            id: 1,
+            maintenance: false,
+        }
+    }
+}

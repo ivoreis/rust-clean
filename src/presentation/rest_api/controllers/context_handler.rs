@@ -9,13 +9,15 @@ pub async fn update_context_handler(
     service_context_service: web::Data<dyn ContextService>,
     post_data: web::Json<ServiceContextDTO>,
 ) -> Result<web::Json<ServiceContextDTO>, ApiError> {
-    let service_context = service_context_service.update(post_data.into_inner().into());
+    let service_context = service_context_service
+        .update(post_data.into_inner().into())
+        .await?;
     Ok(web::Json(service_context.into()))
 }
 
 pub async fn get_contex_handler(
     service_context_service: web::Data<dyn ContextService>,
 ) -> Result<web::Json<ServiceContextDTO>, ApiError> {
-    let service_context = service_context_service.get_service_context();
+    let service_context = service_context_service.get_service_context().await?;
     Ok(web::Json(service_context.into()))
 }

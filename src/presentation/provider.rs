@@ -2,13 +2,19 @@ use std::sync::Arc;
 
 use crate::{
     application::{
-        context::{interfaces::ContextService, service::ContextServiceImpl},
+        context::{
+            interfaces::{ContextRepository, ContextService},
+            service::ContextServiceImpl,
+        },
         todos::{
             interfaces::{TodoRepository, TodoService},
             service::TodoServiceImpl,
         },
     },
-    infrastructure::{postgresql::db_pool, todos::repository::TodoDieselRepository},
+    infrastructure::{
+        context::repository::ContextDieselRepository, postgresql::db_pool,
+        todos::repository::TodoDieselRepository,
+    },
 };
 
 pub struct ServiceProvider {
@@ -19,13 +25,19 @@ pub struct ServiceProvider {
 impl ServiceProvider {
     pub fn new() -> Self {
         let pool = db_pool();
+
         let todo_repository: Arc<dyn TodoRepository> =
             Arc::new(TodoDieselRepository::new(Arc::new(pool.clone())));
-
         let todo_service = Arc::new(TodoServiceImpl {
             repository: todo_repository,
         });
-        let context_service = Arc::new(ContextServiceImpl::new(Arc::new(pool)));
+
+        let context_repository: Arc<dyn ContextRepository> =
+            Arc::new(ContextDieselRepository::new(Arc::new(pool.clone())));
+
+        let context_service = Arc::new(ContextServiceImpl {
+            repository: context_repository,
+        });
 
         ServiceProvider {
             todo_service,

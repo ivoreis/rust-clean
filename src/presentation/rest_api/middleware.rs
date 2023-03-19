@@ -52,11 +52,8 @@ where
         let svc = self.service.clone();
 
         Box::pin(async move {
-            let service_context_service = req.app_data::<web::Data<dyn ContextService>>().unwrap();
-            let is_active = service_context_service
-                .is_maintenance_active()
-                .await
-                .unwrap();
+            let service_context = req.app_data::<web::Data<dyn ContextService>>().unwrap();
+            let is_active = service_context.is_maintenance_active().await.unwrap();
 
             if is_active && !req.path().starts_with("/context") {
                 info!("Service is in maintenance mode");

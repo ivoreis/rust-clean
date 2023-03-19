@@ -34,7 +34,6 @@ impl ServiceProvider {
 
         let context_repository: Arc<dyn ContextRepository> =
             Arc::new(ContextDieselRepository::new(Arc::new(pool.clone())));
-
         let context_service = Arc::new(ContextServiceImpl {
             repository: context_repository,
         });

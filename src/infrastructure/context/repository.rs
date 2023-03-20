@@ -8,8 +8,7 @@ use crate::{
     application::{common::result::RepositoryResult, context::interfaces::ContextRepository},
     domain::context::entities::ServiceContext,
     infrastructure::{
-        context::service_context::ServiceContextDiesel, error::DieselRepositoryError,
-        postgresql::DBConn,
+        context::model::ServiceContextDiesel, error::DieselRepositoryError, postgresql::DBConn,
     },
 };
 
